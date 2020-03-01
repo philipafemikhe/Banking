@@ -29,9 +29,16 @@ class AccountController extends Controller
                 if($transactType == "D"){
                     $account->balance = $account->balance + $request->amount;
                     $account->save();
-                }else if($transactType == "C"){
-                    $account->balance = $account->balance - $request->amount;
-                    $account->save();
+                }else if($transactType == "W"){
+                    if($account->balance >= $request->amount){
+                        $account->balance = $account->balance - $request->amount;
+                        $account->save();
+                    }else{
+                        $data = $request;
+                        $message = "Insufficient fund";
+                        return response()->json(compact('data', 'message'), 500);
+                    }
+                    
                 }else{
                     $data = $request;
                     $message = "Invalid transaction selected";
