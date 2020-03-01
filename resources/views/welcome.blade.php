@@ -84,8 +84,8 @@
 
                 <div class="links">
                     <a href="{{url('account/create')}}">Create Account</a>
-                    <a href="{{url('account/deposit',['id'=>accountno])}}">Deposit</a>
-                    <a href="{{url('account/withdraw', ['id'=>accountno])}}">Withdraw</a>
+                    <a href="{{url('account/deposit')}}">Deposit</a>
+                    <a href="{{url('account/withdraw')}}">Withdraw</a>
                     <!-- <a href="https://forge.laravel.com">Forge</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a> -->
                 </div>

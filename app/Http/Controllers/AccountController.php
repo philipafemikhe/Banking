@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Account;
+use App\Transaction;
+use App\User;
+
 class AccountController extends Controller
 {
     public function withdrawal(Request $request){
@@ -11,7 +15,8 @@ class AccountController extends Controller
     
     }
 
-    public function depositOrWitdraw(Request $request, string $transactType){
+    public function depositOrWitdraw(Request $request){
+        $transactType = $request->dc;
         $account = Account::where("account_no",$request->account_no)->first();
         if(!is_null($account)){
              $transaction = new Transaction([
@@ -34,7 +39,7 @@ class AccountController extends Controller
                 }
                 
                 
-                $data = $newAccount;
+                $data = $account;
                 $message = "Successful";
                 return response()->json(compact('data', 'message'), 200);
             }
@@ -48,15 +53,15 @@ class AccountController extends Controller
     
     public function createAccount(Request $request){
         try{
-            $newAccount = new Account([
-            'account_no'=>$request->account_no,
-            'account_name'=>$request->account_name,
-            'account_signatory'=>$request->account_signatory,
-            'balance'=>$request->balance,
-            
-            ]);
+            $newAccount = new Account();
+            $newAccount->account_no=$request->account_no;
+            $newAccount->account_name=$request->account_name;
+            $newAccount->account_signatory=$request->account_signatory;
+            $newAccount->balance=$request->balance;
+            $newAccount->save();
+
             $data = $newAccount;
-            $message = "Successful";
+            $message = "Account creation Successful";
             return response()->json(compact('data', 'message'), 200);
         }catch(Exception $ex){
             $data = $request;

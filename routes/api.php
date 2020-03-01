@@ -18,6 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('account/create', 'AccountController@createAccount');
-Route::get('account/deposit/{accountno}','AccountController@deposit');
-Route::get('account/withdraw/{accountno}','AccountController@withdrawal');
-Route::get('account/get/{id}', 'AccountController@getAccount')
+Route::post('account/deposit/{accountno}','AccountController@depositOrWitdraw');
+Route::post('account/withdraw/{accountno}','AccountController@depositOrWitdraw');
+Route::get('account/get/{id}', 'AccountController@getAccount');
